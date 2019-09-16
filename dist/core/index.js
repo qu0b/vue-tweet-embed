@@ -7,6 +7,7 @@ function addPlatformScript(src) {
   if (!addScriptPromise) {
     var s = document.createElement('script');
     s.setAttribute('src', src);
+    s.setAttribute('defer', '');
     document.body.appendChild(s);
     addScriptPromise = new Promise(function (resolve, reject) {
       s.onload = function () {
@@ -63,7 +64,7 @@ var twitterEmbedComponent = function twitterEmbedComponent(me) {
         params = this.id;
       }
 
-      Promise.resolve(window.twttr ? window.twttr : addPlatformScript('//platform.twitter.com/widgets.js')).then(function (twttr) {
+      Promise.resolve(window.twttr ? window.twttr : addPlatformScript('https://platform.twitter.com/widgets.js')).then(function (twttr) {
         return me.embedComponent(twttr, params, _this.$el, _this.options);
       }).then(function (data) {
         _this.isAvailable = data !== undefined;
